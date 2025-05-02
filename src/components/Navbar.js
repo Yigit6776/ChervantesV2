@@ -40,6 +40,10 @@ const Navbar = () => {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          async
+        ></script>
       </Head>
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -75,7 +79,9 @@ const Navbar = () => {
                   {loading && <li><span className="dropdown-item">Yükleniyor...</span></li>}
                   {!loading && kategoriler.map((kategori) => (
                     <li key={kategori.id}>
-                      <a className="dropdown-item" href={`/kategori/${kategori.id}`}>{kategori.kategoriAdi}</a>
+                      <a className="dropdown-item" href={`/kategori/${kategori.id}`}>
+                        {kategori.kategoriAdi}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -107,11 +113,6 @@ const Navbar = () => {
       </nav>
 
       <div style={{ marginTop: "80px" }}></div>
-
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        async
-      ></script>
 
       <style jsx global>{`
         .navbar {
