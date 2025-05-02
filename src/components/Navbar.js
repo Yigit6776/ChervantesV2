@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { useSepet } from "../../context/SepetContext";
 import { useAuth } from "../../context/AuthContext";
-/* eslint-disable @next/next/no-html-link-for-pages */
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [kategoriler, setKategoriler] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [aramaKelime, setAramaKelime] = useState("");
 
   const { sepet } = useSepet();
   const { currentUser } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchKategoriler = async () => {
@@ -33,6 +36,13 @@ const Navbar = () => {
     fetchKategoriler();
   }, []);
 
+  const handleArama = (e) => {
+    e.preventDefault();
+    if (aramaKelime.trim() !== "") {
+      router.push(`/arama?kelime=${encodeURIComponent(aramaKelime.trim())}`);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -48,7 +58,7 @@ const Navbar = () => {
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
-          <a className="navbar-brand" href="/">Chervantes</a>
+          <Link href="/" className="navbar-brand">Chervantes</Link>
 
           <button
             className="navbar-toggler"
@@ -79,33 +89,46 @@ const Navbar = () => {
                   {loading && <li><span className="dropdown-item">Yükleniyor...</span></li>}
                   {!loading && kategoriler.map((kategori) => (
                     <li key={kategori.id}>
-                      <a className="dropdown-item" href={`/kategori/${kategori.id}`}>
+                      <Link className="dropdown-item" href={`/kategori/${kategori.id}`}>
                         {kategori.kategoriAdi}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="/iletisim">Hakkımızda</a>
+                <Link className="nav-link" href="/iletisim">Hakkımızda</Link>
               </li>
             </ul>
 
-            <div className="ms-auto d-flex align-items-center">
-              <a href="/sepet" className="nav-link position-relative me-3">
+            {/* 🔍 Arama Kutusu */}
+            <form className="d-flex ms-auto me-3" onSubmit={handleArama}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Ürün ara..."
+                value={aramaKelime}
+                onChange={(e) => setAramaKelime(e.target.value)}
+              />
+              <button className="btn btn-outline-primary ms-2" type="submit">Ara</button>
+            </form>
+
+            {/* Profil ve Sepet */}
+            <div className="d-flex align-items-center">
+              <Link href="/sepet" className="nav-link position-relative me-3">
                 Sepetim
                 {sepet.length > 0 && (
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {sepet.length}
                   </span>
                 )}
-              </a>
+              </Link>
 
               {currentUser ? (
-                <a href="/profil" className="nav-link">Profilim</a>
+                <Link href="/profil" className="nav-link">Profilim</Link>
               ) : (
-                <a href="/uyegiris" className="nav-link">Üye Ol</a>
+                <Link href="/uyegiris" className="nav-link">Üye Ol</Link>
               )}
             </div>
           </div>
