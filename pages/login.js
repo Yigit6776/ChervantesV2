@@ -24,17 +24,39 @@ const Login = () => {
   };
 
   return (
-
     <>
-    <Navbar/>
-    
-    <div className="container mt-5">
-      <form className="card p-4 shadow" onSubmit={handleSubmit}>
-        <input name="email" value={formData.email} onChange={handleChange} placeholder="E-posta" required className="form-control mb-2" />
-        <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Şifre" required className="form-control mb-2" />
-        <button type="submit" className="btn btn-primary w-100">Giriş Yap</button>
-      </form>
-    </div></>
+      <Navbar />
+      <div className="container mt-5">
+        <form className="card p-4 shadow" onSubmit={handleSubmit}>
+          <input
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="E-posta"
+            required
+            className="form-control mb-2"
+          />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Şifre"
+            required
+            className="form-control mb-2"
+          />
+
+          {/* Şifremi Unuttum Linki */}
+          <div className="text-end mb-3">
+            <a href="/sifremi-unuttum" className="text-primary" style={{ fontSize: "0.9rem" }}>
+              Şifremi Unuttum?
+            </a>
+          </div>
+
+          <button type="submit" className="btn btn-primary w-100">Giriş Yap</button>
+        </form>
+      </div>
+    </>
   );
 };
 
