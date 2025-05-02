@@ -93,9 +93,7 @@ const AramaSayfasi = () => {
         <p>❌ Sonuç bulunamadı.</p>
       )}
 
-      <p className="text-muted mt-3">
-        Yüklü Ürün: {urunler.length} — Eşleşen: {sonuclar.length}
-      </p>
+   
     </div>
   );
 };
