@@ -1,25 +1,35 @@
 import Navbar from "@/components/Navbar";
 
-export default function Teslimatkosulları() {
+export default function Teslimatkosullari() {
   return (
     <>
       <Navbar />
       <div className="container mx-auto p-6 text-gray-800 leading-relaxed">
         <h1 className="text-2xl font-bold mb-4">Teslimat Koşulları</h1>
-        <p>
-        TESLİMAT KOŞULLARI
 
-1. Sipariş onayı alındıktan sonra ürünler en geç 3 iş günü içerisinde kargoya verilir.
+        <p className="mb-4">
+          <strong>1. Sipariş Onayı:</strong><br />
+          Sipariş onayı alındıktan sonra ürünler en geç <strong>3 iş günü</strong> içerisinde kargoya verilir.
+        </p>
 
-2. Teslimat, Alıcının sipariş sırasında belirttiği adrese yapılır.
+        <p className="mb-4">
+          <strong>2. Teslimat Adresi:</strong><br />
+          Teslimat, alıcının sipariş sırasında belirttiği adrese yapılır.
+        </p>
 
-3. Teslimat süresi, kargo firmasına ve teslimat adresinin bulunduğu bölgeye bağlı olarak değişiklik gösterebilir.
+        <p className="mb-4">
+          <strong>3. Teslimat Süresi:</strong><br />
+          Teslimat süresi, kargo firmasına ve teslimat adresinin bulunduğu bölgeye bağlı olarak değişiklik gösterebilir.
+        </p>
 
-4. Kargo firması kaynaklı gecikmelerden Satıcı sorumlu değildir.
+        <p className="mb-4">
+          <strong>4. Gecikmeler:</strong><br />
+          Kargo firması kaynaklı gecikmelerden Satıcı sorumlu değildir.
+        </p>
 
-5. Alıcı, teslimat sırasında ürün paketini kontrol etmeli, hasarlı ambalajlı ürünleri teslim almamalı ve durumu kargo görevlisine tutanakla bildirmelidir.
-
-          {/* buraya tüm .txt içeriğini paragraf paragraf yapıştırabilirsin */}
+        <p className="mb-4">
+          <strong>5. Hasarlı Ürün Durumu:</strong><br />
+          Alıcı, teslimat sırasında ürün paketini mutlaka kontrol etmelidir. Hasarlı veya açılmış ambalajlı ürünleri teslim almamalı ve durumu kargo görevlisine tutanakla bildirmelidir.
         </p>
       </div>
     </>
