@@ -64,7 +64,11 @@ const KategoriSayfasi = () => {
 
                   <div className="card-body">
                     <h5 className="card-title">{urun.urunAdi}</h5>
-                    <p className="card-text">{urun.aciklama || "Açıklama mevcut değil."}</p>
+                    <p className="card-text">{urun.aciklama
+                          ? urun.aciklama.length > 100
+                            ? `${urun.aciklama.substring(0, 100)}...`
+                            : urun.aciklama
+                          : "Açıklama mevcut değil."}</p>
                     <h6 className="text-success fw-bold">{urun.fiyat} TL</h6>
                     <Link href={`/urun/${urun.id}`} className="btn btn-primary">
                       Detayları Gör
