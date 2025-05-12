@@ -121,6 +121,18 @@ export default function Odeme() {
             <p className="text-muted">Kart ödeme formu (placeholder) 💳</p>
           </div>
         </div>
+
+
+
+<div className="text-center mt-5 mb-20">
+  <img
+    src="/iyzico-logo-pack/iyzico-logo-pack/footer_iyzico_ile_ode/Colored/logo_band_colored@2x.png"
+    alt="ödeme logoları"
+    style={{ maxWidth: "400px", marginTop: "10px" }}
+  />
+</div>
+
+
       </div>
     </>
   );

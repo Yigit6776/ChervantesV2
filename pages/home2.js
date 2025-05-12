@@ -106,11 +106,26 @@ export default function Home2() {
                 </ul>
               </div>
 
-              <div className="col-12 col-md-4 mb-3">
+              <div className="col-12 col-md-4 mb-3 text-center">
                 <h6 className="fw-bold">Chervantes</h6>
                 <p className="small mb-0">© 2025 Chervantes.com</p>
                 <p className="small">Tüm Hakları Saklıdır.</p>
+
+
+    
+
+
               </div>
+            <center>
+
+             <img
+  src="/iyzico-logo-pack/iyzico-logo-pack/footer_iyzico_ile_ode/Colored/logo_band_colored@3x.png
+"
+  alt="d"
+  style={{ maxWidth: "400px", marginTop: "10px" }}
+/>     
+                </center>
+
             </div>
           </div>
         </footer>
