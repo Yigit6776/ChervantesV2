@@ -173,9 +173,7 @@ export default function Odeme() {
               </div>
 
               <div className="text-center mt-3">
-                <p className="text-muted">
-                  💳 <strong>Test Kart:</strong> 5528790000000008 - 12/30 - 123
-                </p>
+               
                 <img
                   src="/iyzico-logo-pack/iyzico-logo-pack/footer_iyzico_ile_ode/Colored/logo_band_colored@2x.png"
                   alt="ödeme logoları"
