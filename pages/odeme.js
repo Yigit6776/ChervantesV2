@@ -11,6 +11,7 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 async function getNextOrderNumber() {
   const counterRef = doc(db, 'counters', 'orders');
@@ -31,6 +32,7 @@ async function getNextOrderNumber() {
 
 export default function Odeme() {
   const { sepet } = useSepet();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     adSoyad: '',
     email: '',
@@ -64,8 +66,7 @@ export default function Odeme() {
         0
       );
 
-     const response = await fetch('/api/odeme4', {
-
+      const response = await fetch('/api/odeme4', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,7 +100,21 @@ export default function Odeme() {
         const orderDocRef = doc(db, 'Sparisler', orderId);
         await setDoc(orderDocRef, orderData);
 
+        // SMS gönder - müşteriye
+       
+
+        // SMS gönder - sana (sabit numara)
+        await fetch('/api/sms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: '+905443759482', // kendi numaran buraya
+            message: `Yeni bir sipariş alındı. Sipariş numarası: sparis${orderId}`
+          })
+        });
+
         alert(`✅ Ödeme başarılı. Sipariş numaranız: sparis${orderId}`);
+        router.push('/home2');
       } else {
         alert('❌ Ödeme başarısız!');
         console.error('Ödeme hatası:', result);
@@ -173,7 +188,6 @@ export default function Odeme() {
               </div>
 
               <div className="text-center mt-3">
-               
                 <img
                   src="/iyzico-logo-pack/iyzico-logo-pack/footer_iyzico_ile_ode/Colored/logo_band_colored@2x.png"
                   alt="ödeme logoları"
