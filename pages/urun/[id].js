@@ -1,19 +1,25 @@
-"use client";
+// pages/urunDetay.js
+'use client';
+// pages/urun/[[id]].js (veya urunDetay.js)
 
+import Link from 'next/link'; // <<-- Bu satırı dosyanın en üstüne ekleyin
+
+// ... diğer kodlar ...
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { db } from "../../src/firebaseConfig";
+import { db } from "../../src/firebaseConfig"; // Firebase config yolunu kontrol edin
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "@/components/Navbar";
-import { useSepet } from "../../context/SepetContext";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useSepet } from "../../context/SepetContext"; // SepetContext yolunu kendi projenizin yapısına göre kontrol edin
+// "next/image" bileşeni kaldırıldığı için artık import edilmesine gerek yok.
+// FaChevronLeft ve FaChevronRight artık Bootstrap Carousel içinde kullanılmayacak
+// Bootstrap Icons kullanacağız
 
 const UrunDetay = () => {
   const router = useRouter();
   const { id } = router.query;
   const [urun, setUrun] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const { sepeteEkle } = useSepet();
 
   useEffect(() => {
@@ -31,117 +37,132 @@ const UrunDetay = () => {
         }
       } catch (error) {
         console.error("🔥 Firestore Hatası:", error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchUrun();
   }, [id]);
 
   const handleSepeteEkle = () => {
-    sepeteEkle(urun);
-    alert("✅ Ürün sepete eklendi!");
-  };
-
-  const handleNext = () => {
-    if (!urun?.fotograflar) return;
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % urun.fotograflar.length);
-  };
-
-  const handlePrev = () => {
-    if (!urun?.fotograflar) return;
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + urun.fotograflar.length) % urun.fotograflar.length);
+    if (urun) {
+      sepeteEkle(urun);
+      alert("✅ Ürün sepete eklendi!");
+    }
   };
 
   return (
     <>
       <Navbar />
 
-      <div className="container mx-auto p-6">
+      <div className="container my-5">
         {loading ? (
-          <p className="text-center text-gray-500 text-xl">⏳ Ürün yükleniyor...</p>
-        ) : urun ? (
-          <div className="flex flex-col md:flex-row gap-8 justify-center items-start">
-            {/* Ürün Görseli */}
-            <div className="flex flex-col justify-center items-center w-full md:w-1/2">
-              {urun.fotograflar && urun.fotograflar.length > 0 && (
-                <><center>
-
-
-              
-                  <img
-                    src={urun.fotograflar[currentIndex]}
-                    alt={urun.urunAdi}
-                    style={{
-                      maxWidth: "400px",
-                      maxHeight: "400px",
-                      objectFit: "contain",
-                      borderRadius: "12px",
-                      boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                    }}
-                  />
-
-                  {/* Oklar Yan Yana */}
-                  <div className="flex justify-center items-center gap-6 mt-4">
-                    <button
-                      onClick={handlePrev}
-                      className="bg-white rounded-full p-3 shadow hover:bg-gray-200 flex items-center justify-center"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                      }}
-                    >
-                      <FaChevronLeft size={24} />
-                    </button>
-
-                    <button
-                      onClick={handleNext}
-                      className="bg-white rounded-full p-3 shadow hover:bg-gray-200 flex items-center justify-center"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                      }}
-                    >
-                      <FaChevronRight size={24} />
-                    </button>
-                  </div>
-                  </center>
-                </>
-              )}  
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Yükleniyor...</span>
             </div>
+            <p className="mt-3 text-muted">Ürün yükleniyor...</p>
+          </div>
+        ) : urun ? (
+          <div className="card shadow-lg border-0 rounded-4 p-4">
+            <div className="row g-4">
 
-            {/* Ürün Bilgileri */}
-            <div className="flex flex-col w-full md:w-1/2">
-              <h2 className="text-3xl font-semibold text-gray-800">{urun.urunAdi}</h2>
-
-              {/* Açıklamayı ➔ ile madde işareti yapıyoruz */}
-              <div className="text-gray-600 mt-4 leading-relaxed whitespace-pre-line">
-                {urun?.aciklama && typeof urun.aciklama === "string" ? (
-                  urun.aciklama.split("\n").map((satir, index) => (
-                    <div key={index} className="flex items-start gap-2 mb-1">
-                      <span>➔</span>
-                      <span>{satir}</span>
+              {/* Ürün Görseli - Bootstrap Carousel (şimdi <img> ile) */}
+              <div className="col-lg-6">
+                {urun.fotograflar && urun.fotograflar.length > 0 ? (
+                  <div id="urunCarousel" className="carousel slide carousel-fade" data-bs-ride="carousel">
+                    {/* Carousel Göstergeleri (noktalar) */}
+                    {urun.fotograflar.length > 1 && (
+                      <div className="carousel-indicators">
+                        {urun.fotograflar.map((_, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            data-bs-target="#urunCarousel"
+                            data-bs-slide-to={idx}
+                            className={idx === 0 ? "active" : ""}
+                            aria-current={idx === 0 ? "true" : ""}
+                            aria-label={`Slide ${idx + 1}`}
+                          ></button>
+                        ))}
+                      </div>
+                    )}
+                    <div className="carousel-inner rounded-3 shadow-sm">
+                      {urun.fotograflar.map((foto, idx) => (
+                        <div key={idx} className={`carousel-item ${idx === 0 ? 'active' : ''}`} style={{ height: '500px' }}>
+                          <img
+                            src={foto}
+                            className="d-block w-100 h-100 object-fit-contain img-fluid" // img-fluid eklendi
+                            alt={urun.urunAdi || `Ürün Görseli ${idx + 1}`}
+                            style={{ objectFit: 'contain' }} // CSS object-fit kullanıldı
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))
+                    {urun.fotograflar.length > 1 && (
+                      <>
+                        {/* Önceki Buton */}
+                        <button className="carousel-control-prev" type="button" data-bs-target="#urunCarousel" data-bs-slide="prev">
+                          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span className="visually-hidden">Previous</span>
+                        </button>
+                        {/* Sonraki Buton */}
+                        <button className="carousel-control-next" type="button" data-bs-target="#urunCarousel" data-bs-slide="next">
+                          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span className="visually-hidden">Next</span>
+                        </button>
+                      </>
+                    )}
+                  </div>
                 ) : (
-                  <p>Bu ürün hakkında açıklama bulunmamaktadır.</p>
+                  <div className="d-flex justify-content-center align-items-center bg-light rounded-3" style={{ height: '500px' }}>
+                    <p className="text-muted">Görsel bulunamadı.</p>
+                  </div>
                 )}
               </div>
 
-              <div className="mt-4">
-                <h3 className="text-2xl font-bold text-green-600">{urun.fiyat} TL</h3>
-              </div>
+              {/* Ürün Bilgileri */}
+              <div className="col-lg-6 d-flex flex-column justify-content-between">
+                <div>
+                  <h1 className="display-5 fw-bold text-primary mb-3">{urun.urunAdi}</h1>
+                  <hr className="my-4" />
 
-              <button
-                className="btn btn-primary mt-6 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300"
-                onClick={handleSepeteEkle}
-              >
-                Sepete Ekle
-              </button>
+                  <h4 className="mb-3 text-secondary">Ürün Açıklaması:</h4>
+                  <div className="text-muted lh-base mb-4">
+                    {urun?.aciklama && typeof urun.aciklama === "string" ? (
+                      urun.aciklama.split("\n").map((satir, index) => (
+                        <p key={index} className="mb-2">
+                          <i className="bi bi-arrow-right-circle-fill text-success me-2"></i>
+                          {satir}
+                        </p>
+                      ))
+                    ) : (
+                      <p>Bu ürün hakkında açıklama bulunmamaktadır.</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-auto">
+                  <h2 className="display-4 fw-bold text-success mb-4">₺{Number(urun.fiyat).toFixed(2)}</h2>
+                  <button
+                    className="btn btn-primary btn-lg w-100 py-3 rounded-pill shadow-sm"
+                    onClick={handleSepeteEkle}
+                  >
+                    <i className="bi bi-cart-plus-fill me-2"></i> Sepete Ekle
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
-          <p className="text-center text-red-500 text-xl font-semibold">⚠️ Ürün bulunamadı.</p>
+          <div className="alert alert-danger text-center py-5" role="alert">
+            <h4 className="alert-heading">⚠️ Ürün bulunamadı!</h4>
+            <p>Aradığınız ürün mevcut değil veya silinmiş olabilir.</p>
+            <hr />
+        <p className="mb-0">Ana sayfaya dönmek için <Link href="/home2" className="alert-link">buraya tıklayın</Link>.</p>
+
+          </div>
         )}
       </div>
     </>

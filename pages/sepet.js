@@ -20,22 +20,22 @@ const Sepet = () => {
 
   const urunArttir = async (urun) => {
     await sepeteEkle(urun);
-    window.location.href = "/sepet"; // 🔥 Artık .html olarak yönlendirme
+    window.location.href = '/sepet'; // 🔥 Artık .html olarak yönlendirme yok
   };
 
   const urunAzalt = async (urun) => {
     await sepettenCikar(urun.id);
-    window.location.href = "/sepet";
+    window.location.href = '/sepet';
   };
 
   const urunSil = async (urunId) => {
     await urunuTamamenSil(urunId);
-    window.location.href = "/sepet";
+    window.location.href = '/sepet';
   };
 
   const tumunuSil = async () => {
     await sepetiBosalt();
-    window.location.href = "/sepet";
+    window.location.href = '/sepet';
   };
 
   return (
@@ -60,11 +60,11 @@ const Sepet = () => {
                       <img
                         src={urun.fotograflar[0]}
                         alt={urun.urunAdi}
+                        className="rounded"
                         style={{
                           width: '40px',
                           height: '40px',
                           objectFit: 'cover',
-                          borderRadius: '8px',
                           marginRight: '10px',
                         }}
                       />
@@ -118,7 +118,7 @@ const Sepet = () => {
 
               <button
                 className="btn btn-primary"
-                onClick={() => (window.location.href = "/odeme")} // 👈 dikkat
+                onClick={() => (window.location.href = '/odeme')} // 👈 dikkat
               >
                 Sepeti Onayla
               </button>
