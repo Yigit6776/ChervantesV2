@@ -157,8 +157,8 @@ export default function Home2() {
               <h6 className="fw-bold mb-3 text-white">Bize Ulaşın</h6>
               <ul className="list-unstyled">
                 <li><Link href="/iletisim" className="text-white-50 text-decoration-none hover-white">İletişim Formu</Link></li>
-                <li className="text-white-50"><i className="bi bi-envelope-fill me-2"></i> info@chervantes.com</li>
-                <li className="text-white-50"><i className="bi bi-phone-fill me-2"></i> +90 5XX XXX XX XX</li>
+                <li className="text-white-50"><i className="bi bi-envelope-fill me-2"></i> chervantesholding@gmail.com</li>
+                <li className="text-white-50"><i className="bi bi-phone-fill me-2"></i> +90 544 375 94 82</li>
               </ul>
               <div className="mt-3">
                 <a href="#" className="text-white me-3 fs-5"><i className="bi bi-facebook"></i></a>
