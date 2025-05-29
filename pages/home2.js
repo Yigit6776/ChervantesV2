@@ -48,7 +48,7 @@ export default function Home2() {
               <p className="lead animate__animated animate__fadeInUp animate__delay-1s">
                 En kaliteli ürünleri en uygun fiyatlarla keşfedin. Geniş ürün yelpazemizle beklentilerinizi aşın.
               </p>
-              <Link href="/urunler" className="btn btn-light btn-lg rounded-pill shadow-lg mt-3 animate__animated animate__zoomIn animate__delay-2s">
+              <Link href="/home2" className="btn btn-light btn-lg rounded-pill shadow-lg mt-3 animate__animated animate__zoomIn animate__delay-2s">
                 <i className="bi bi-shop me-2"></i> Şimdi Alışverişe Başla
               </Link>
             </div>
