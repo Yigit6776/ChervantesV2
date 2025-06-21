@@ -139,8 +139,10 @@ export default function Home2() {
               <h6 className="fw-bold mb-3 text-white">Chervantes</h6>
               <p className="small text-white-50">
                 Kalite ve güvenin adresi. En iyi alışveriş deneyimi için her zaman yanınızdayız.
-              </p>
-            </div>
+              </p>  
+              
+              <p className="small text-white-50"> Ürünlerin üzerindeki fiyatlarda KDV dahildir. </p>
+                          </div>
 
             <div className="col-12 col-md-4 mb-4">
               <h6 className="fw-bold mb-3 text-white">Bilgilendirme</h6>

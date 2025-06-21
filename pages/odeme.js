@@ -28,6 +28,25 @@ const openSans = Open_Sans({
   variable: '--font-open-sans',
 });
 
+
+
+
+const calculateSubtotal = () => {
+  return localSepet.reduce((sum, u) => sum + Number(u.fiyat) * (u.adet || 1), 0);
+};
+
+const calculateKdv = () => {
+  return calculateSubtotal() * 0.2; // %20 KDV
+};
+
+const calculateFinalPrice = () => {
+  return (calculateSubtotal() + calculateKdv()).toFixed(2);
+};
+
+
+
+
+
 async function getNextOrderNumber() {
   const counterRef = doc(db, 'counters', 'orders');
   let nextNumber;
@@ -66,6 +85,7 @@ export default function Odeme() {
     kartNumara: '',
     kartAy: '',
     kartYil: '',
+    tc: '',
     kartCVC: '',
   });
   const [localSepet, setLocalSepet] = useState([]);
@@ -124,6 +144,7 @@ export default function Odeme() {
         ilce: formData.ilce,
         mahalle: formData.mahalle,
         postaKodu: formData.postaKodu,
+        tc: formData.tc,
         sepet: localSepet // Sepeti de API'ye gönderiyoruz!
       };
 
@@ -167,28 +188,30 @@ export default function Odeme() {
         console.log('ADIM 4: Oluşturulan Sipariş Numarası:', orderId);
 
         const orderData = {
-            orderNumber: `sparis${orderId}`,
-            sepet: localSepet.map(item => ({
-                id: item.id,
-                urunAdi: item.urunAdi,
-                fiyat: item.fiyat,
-                adet: item.adet || 1,
-            })),
-            toplamTutar,
-            formData: {
-                adSoyad: formData.adSoyad,
-                email: formData.email,
-                telefon: formData.telefon,
-                il: formData.il,
-                ilce: formData.ilce,
-                mahalle: formData.mahalle,
-                adresDetay: formData.adresDetay,
-                postaKodu: formData.postaKodu,
-            },
-            createdAt: serverTimestamp(),
-            paymentStatus: result.paymentStatus || result.status || 'SUCCESS',
-            paymentReference: result.referenceId || result.conversationId || null,
-        };
+  orderNumber: `sparis${orderId}`,
+  sepet: localSepet.map(item => ({
+    id: item.id,
+    urunAdi: item.urunAdi,
+    fiyat: item.fiyat,
+    adet: item.adet || 1,
+  })),
+  toplamTutar,
+  formData: {
+    adSoyad: formData.adSoyad,
+    email: formData.email,
+    telefon: formData.telefon,
+    il: formData.il,
+    ilce: formData.ilce,
+    mahalle: formData.mahalle,
+    adresDetay: formData.adresDetay,
+    postaKodu: formData.postaKodu,
+    tc: formData.tc  // ✅ EKLENDİ
+  },
+  createdAt: serverTimestamp(),
+  paymentStatus: result.paymentStatus || result.status || 'SUCCESS',
+  paymentReference: result.referenceId || result.conversationId || null,
+};
+
 
         console.log('ADIM 5: Firebase\'e sipariş kaydediliyor...', orderData);
         const orderDocRef = doc(db, 'Sparisler', orderId);
@@ -280,6 +303,7 @@ export default function Odeme() {
                   ['Telefon', 'telefon', 'tel'],
                   ['İl', 'il', 'text'],
                   ['İlçe', 'ilce', 'text'],
+                  ['TC Kimlik No', 'tc', 'text'],
                   ['Mahalle', 'mahalle', 'text'],
                   ['Posta Kodu', 'postaKodu', 'text', false],
                   ['Adres Detayı', 'adresDetay', 'textarea', true, 3]
@@ -324,11 +348,12 @@ export default function Odeme() {
                           {urun.urunAdi} ({urun.adet || 1} adet)
                         </div>
                         <span className="fw-bold">{((urun.fiyat || 0) * (urun.adet || 1)).toFixed(2)} TL</span>
+                        
                       </li>
                     ))}
                     <li className="list-group-item d-flex justify-content-between align-items-center fw-bold text-primary">
                       <span>Toplam Tutar:</span>
-                      <span className="fs-5">{calculateTotalPrice()} TL</span>
+                      <span className="fs-5">{calculateTotalPrice()}TL</span>
                     </li>
                   </ul>
                 </div>
