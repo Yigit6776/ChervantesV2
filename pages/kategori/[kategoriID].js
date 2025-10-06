@@ -33,6 +33,7 @@ const KategoriSayfasi = () => {
 
   return (
     <>
+    
       <Navbar />
 
       <div className="container">
@@ -58,7 +59,7 @@ const KategoriSayfasi = () => {
                       onError={(e) => (e.target.src = "/placeholder.png")}
                       className="card-img-top"
                       alt={urun.urunAdi}
-                      style={{ height: "200px", objectFit: "cover" }}
+                      style={{ height: "350px", objectFit: "cover" }}
                     />
                   </Link>
 
@@ -87,8 +88,21 @@ const KategoriSayfasi = () => {
           Ana Sayfaya Dön
         </button>
       </div>
+      <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `}</style>
     </>
+    
   );
+  
+  
+
 };
 
 export default KategoriSayfasi;

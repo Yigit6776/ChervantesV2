@@ -420,6 +420,15 @@ export default function Odeme() {
           </form>
         )}
       </div>
+       <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `}</style>
     </>
   );
 }

@@ -38,19 +38,27 @@ export default function Home2() {
       <Navbar />
 
       {/* Sayfa Üstü Banner / Tanıtım Alanı */}
-      <section className="bg-gradient-primary-to-secondary py-5 text-white shadow-sm hero-section">
+<section
+  className="py-5 text-white shadow-sm hero-section"
+  style={{
+    backgroundImage: "url('\ChatGPT Image 29 Eyl 2025 11_38_53.png')",
+    backgroundSize: "cover",         // resmi tamamen kaplar
+    backgroundPosition: "center",    // ortalayarak hizalar
+    backgroundRepeat: "no-repeat",
+    minHeight: "800px",              // yüksekliği büyüt (isteğe göre 400px - 600px yapabilirsin)
+    width: "100%",                         // yatayda full gelsin
+  }}
+>
+
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7 text-center text-lg-start mb-4 mb-lg-0">
-              <h1 className="display-4 fw-bold mb-3 animate__animated animate__fadeInDown">
-                Chervantese Hoş Geldiniz!
-              </h1>
+             
+                
               <p className="lead animate__animated animate__fadeInUp animate__delay-1s">
-                En kaliteli ürünleri en uygun fiyatlarla keşfedin. Geniş ürün yelpazemizle beklentilerinizi aşın.
+               
               </p>
-              <Link href="/home2" className="btn btn-light btn-lg rounded-pill shadow-lg mt-3 animate__animated animate__zoomIn animate__delay-2s">
-                <i className="bi bi-shop me-2"></i> Şimdi Alışverişe Başla
-              </Link>
+             
             </div>
             <div className="col-lg-5 d-flex justify-content-center animate__animated animate__fadeInRight animate__delay-1s">
               {/* Buraya mağazanızı veya ürünleri temsil eden şık bir görsel eklenebilir */}

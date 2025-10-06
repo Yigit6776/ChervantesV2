@@ -32,6 +32,16 @@ export default function Teslimatkosullari() {
           Alıcı, teslimat sırasında ürün paketini mutlaka kontrol etmelidir. Hasarlı veya açılmış ambalajlı ürünleri teslim almamalı ve durumu kargo görevlisine tutanakla bildirmelidir.
         </p>
       </div>
+       <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `}</style>
     </>
+    
   );
 }

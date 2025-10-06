@@ -46,6 +46,15 @@ export default function Onbilgilendirmeformu() {
           İşbu sözleşmeden doğabilecek uyuşmazlıklarda, Gümrük ve Ticaret Bakanlığı tarafından belirlenen parasal sınırlara göre Alıcının ve Satıcının bulunduğu yerdeki Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.
         </p>
       </div>
+       <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `}</style>
     </>
   );
 }

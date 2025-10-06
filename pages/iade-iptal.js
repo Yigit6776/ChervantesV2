@@ -32,6 +32,16 @@ export default function Iadeiptal() {
           İade edilen ürün Satıcıya ulaştıktan sonra en geç <strong>14 iş günü</strong> içinde ürün bedeli, ödemenin yapıldığı yöntemle iade edilir.
         </p>
       </div>
+       <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `
+      }</style>
     </>
   );
 }

@@ -51,6 +51,15 @@ export default function Kvkk() {
           Veriler; SSL sertifikası, yetkilendirme sistemleri ve erişim loglamaları ile korunur.
         </p>
       </div>
+       <style jsx global>{`
+        :root {
+          --nav-h: 74px; /* navbar yüksekliği */
+        }
+
+        .contact-page {
+          padding-top: var(--nav-h);
+        }
+      `}</style>
     </>
   );
 }
